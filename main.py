@@ -19,7 +19,7 @@ def all_cars():
     brand = request.form['brand']
     tmp_cars = []
     for car in cars:
-      if brand in car['brand']:
+      if brand.lower() in car['brand'].lower():
         tmp_cars.append(car)
     # cars = tmp_cars
     return render_template('cars/cars.html', 
