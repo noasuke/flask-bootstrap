@@ -11,12 +11,16 @@
     <hr>
     <div class="row">
       <div class="col">
-        <form method="post">
+        <form>
           <div class="input-group mb-3">
-            <input name="brand" type="text" class="form-control" placeholder="Search by Car's Brand" aria-label="Recipient’s username" aria-describedby="button-addon2">
-            <button class="btn btn-outline-success" type="submit" id="button-addon2">
+            <input name="brand" type="text" class="form-control" placeholder="Search by Car's Brand"
+            hx-get="{{url_for('search_car')}}"
+            hx-trigger="keyup changed delay:100ms"
+            hx-target="#results">
+            <!-- <button class="btn btn-outline-success" type="button" 
+            >
               <i class="bi bi-search"></i>
-            </button>
+            </button> -->
           </div>
         </form>
       </div>
@@ -36,7 +40,7 @@
           <th scope="col">Action</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="results">
         {% for car in cars %}
           <tr>
             <th scope="row">{{loop.index}}</th>

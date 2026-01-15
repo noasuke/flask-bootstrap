@@ -30,22 +30,22 @@ def all_cars():
                          title='Show All Cars Page',
                          cars=cars)
 
-@app.route('/cars/new', methods=['GET', 'POST'])
+@app.route('/cars/new')
 def new_car():
-  if request.method == 'POST':
-    brand = request.form['brand']
-    model = request.form['model']
-    year = int(request.form['year'])
-    price = int(request.form['price'])
+  # if request.method == 'POST':
+  #   brand = request.form['brand']
+  #   model = request.form['model']
+  #   year = int(request.form['year'])
+  #   price = int(request.form['price'])
 
-    length = len(cars)
-    id = cars[length-1]['id'] + 1
+  #   length = len(cars)
+  #   id = cars[length-1]['id'] + 1
 
-    car = {'id':id, 'brand': brand, 'model':model, 'year': year, 'price': price}
+  #   car = {'id':id, 'brand': brand, 'model':model, 'year': year, 'price': price}
 
-    cars.append(car)
-    flash('Add new Car Successfull.', 'success')
-    return redirect(url_for('all_cars'))
+  #   cars.append(car)
+  #   flash('Add new Car Successfull.', 'success')
+  #   return redirect(url_for('all_cars'))
 
   return render_template('cars/new_car.html',
                           title='New Car Page')
@@ -85,3 +85,16 @@ def edit_car(id):
   return render_template('cars/edit_car.html',
                          title='Edit Car Page',
                          car=car)
+
+@app.route('/cars/search')
+def search_car():
+  brand = request.args.get('brand')
+  print(brand)
+  tmp_cars = []
+  for car in cars:
+    if brand.lower() in car['brand'].lower():
+      tmp_cars.append(car)
+  # cars = tmp_cars
+  return render_template('cars/search_car.html', 
+                        title='Search Cars Page',
+                        cars=tmp_cars)
